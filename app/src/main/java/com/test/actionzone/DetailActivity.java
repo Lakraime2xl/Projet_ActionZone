@@ -1,5 +1,6 @@
 package com.test.actionzone;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -14,17 +15,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Calendar;
+
 public class DetailActivity extends AppCompatActivity {
 
     private ImageView imgAffiche;
-    private TextView tvTitre, tvNote, tvSynopsis;
+    private TextView tvTitre, tvNote, tvSynopsis, tvDateChoisie;
     private Spinner spinnerStatut;
     private RatingBar ratingBar;
     private EditText etAvis;
-    private Button btnAjouter;
+    private Button btnAjouter, btnDate;
 
-    // Le film reçu depuis RechercheActivity
     private Film film;
+
+    // Pour sauvegarder la date choisie
+    private String dateChoisie = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,8 @@ public class DetailActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         etAvis = findViewById(R.id.etAvis);
         btnAjouter = findViewById(R.id.btnAjouter);
+        btnDate = findViewById(R.id.btnDate);
+        tvDateChoisie = findViewById(R.id.tvDateChoisie);
 
         // On récupère les données envoyées depuis RechercheActivity
         String titre = getIntent().getStringExtra("titre");
@@ -69,9 +76,29 @@ public class DetailActivity extends AppCompatActivity {
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerStatut.setAdapter(adapterSpinner);
 
+        // Clic sur le bouton date : ouvre le DatePickerDialog
+        btnDate.setOnClickListener(v -> {
+            // On récupère la date d'aujourd'hui par défaut
+            Calendar calendar = Calendar.getInstance();
+            int annee = calendar.get(Calendar.YEAR);
+            int mois = calendar.get(Calendar.MONTH);
+            int jour = calendar.get(Calendar.DAY_OF_MONTH);
+
+            // On crée le DatePickerDialog
+            DatePickerDialog dialog = new DatePickerDialog(
+                    this,
+                    (view, anneeChoisie, moisChoisi, jourChoisi) -> {
+                        // Quand l'utilisateur choisit une date
+                        dateChoisie = jourChoisi + "/" + (moisChoisi + 1) + "/" + anneeChoisie;
+                        tvDateChoisie.setText("Date : " + dateChoisie);
+                    },
+                    annee, mois, jour
+            );
+            dialog.show();
+        });
+
         // Quand on clique sur Ajouter
         btnAjouter.setOnClickListener(v -> {
-            // On récupère les données personnelles
             film.statut = spinnerStatut.getSelectedItem().toString();
             film.maNote = ratingBar.getRating();
             film.avis = etAvis.getText().toString().trim();
@@ -80,10 +107,30 @@ public class DetailActivity extends AppCompatActivity {
             GestionFichier.ajouterFilm(this, film);
 
             Toast.makeText(this, film.titre + " ajouté à ta collection !", Toast.LENGTH_SHORT).show();
-
-            // On ferme DetailActivity et on retourne à MainActivity
             finish();
         });
+    }
+
+    // onSaveInstanceState : sauvegarde les données si l'app est interrompue
+    // Par exemple si l'utilisateur tourne l'écran
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("dateChoisie", dateChoisie);
+        outState.putFloat("maNote", ratingBar.getRating());
+        outState.putString("avis", etAvis.getText().toString());
+    }
+
+    // onRestoreInstanceState : restaure les données sauvegardées
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        dateChoisie = savedInstanceState.getString("dateChoisie", "");
+        if (!dateChoisie.isEmpty()) {
+            tvDateChoisie.setText("Date : " + dateChoisie);
+        }
+        ratingBar.setRating(savedInstanceState.getFloat("maNote", 0));
+        etAvis.setText(savedInstanceState.getString("avis", ""));
     }
 
     @Override

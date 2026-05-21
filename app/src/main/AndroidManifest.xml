@@ -10,30 +10,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActionZone">
-        <activity
-            android:name=".ParametresActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Film"
-            android:exported="false" />
-        <activity
-            android:name=".RechercheActivity"
-            android:exported="false" /> <!-- SplashActivity démarre en premier -->
-        <activity
-            android:name=".SplashActivity"
+
+        <!-- SplashActivity démarre en premier -->
+        <activity android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- MainActivity vient après le Splash -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false" />
+        </activity>
+
+        <!-- MainActivity : écran principal -->
+        <activity android:name=".MainActivity"
+            android:exported="false"/>
+
+        <!-- RechercheActivity : recherche TMDB -->
+        <activity android:name=".RechercheActivity"
+            android:exported="false"/>
+
+        <!-- DetailActivity : détail d'un film -->
+        <activity android:name=".DetailActivity"
+            android:exported="false"/>
+
+        <!-- ParametresActivity : paramètres -->
+        <activity android:name=".ParametresActivity"
+            android:exported="false"/>
+
     </application>
 
 </manifest>
