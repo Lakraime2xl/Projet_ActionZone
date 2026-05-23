@@ -32,13 +32,13 @@ public class ParametresActivity extends AppCompatActivity {
         etNom = findViewById(R.id.etNom);
         etThematique = findViewById(R.id.etThematique);
         switchNotifications = findViewById(R.id.switchNotifications);
-        checkBoxAdulte = findViewById(R.id.checkBoxAdulte);
+
         radioGroupLangue = findViewById(R.id.radioGroupLangue);
         btnSauvegarder = findViewById(R.id.btnSauvegarder);
 
         prefs = getSharedPreferences("parametres", MODE_PRIVATE);
 
-        // On charge les données déjà sauvegardées
+
         etNom.setText(prefs.getString("nom", ""));
         etThematique.setText(prefs.getString("thematique", ""));
         switchNotifications.setChecked(prefs.getBoolean("notifications", false));

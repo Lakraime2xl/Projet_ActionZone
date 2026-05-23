@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ActionZone">
 
-        <!-- SplashActivity démarre en premier -->
+
         <activity android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
@@ -20,19 +20,19 @@
             </intent-filter>
         </activity>
 
-        <!-- MainActivity : écran principal -->
+
         <activity android:name=".MainActivity"
             android:exported="false"/>
 
-        <!-- RechercheActivity : recherche TMDB -->
+
         <activity android:name=".RechercheActivity"
             android:exported="false"/>
 
-        <!-- DetailActivity : détail d'un film -->
+
         <activity android:name=".DetailActivity"
             android:exported="false"/>
 
-        <!-- ParametresActivity : paramètres -->
+        
         <activity android:name=".ParametresActivity"
             android:exported="false"/>
 

@@ -13,19 +13,19 @@ import java.util.ArrayList;
 
 public class GestionFichier {
 
-    // Nom du fichier qui stocke la collection
+
     private static final String NOM_FICHIER = "collection.json";
 
-    // Sauvegarder un film dans le fichier
+
     public static void ajouterFilm(Context context, Film film) {
         try {
-            // On lit d'abord la liste existante
+
             ArrayList<Film> liste = lireFilms(context);
 
-            // On ajoute le nouveau film
+
             liste.add(film);
 
-            // On convertit la liste en JSON
+
             JSONArray jsonArray = new JSONArray();
             for (Film f : liste) {
                 JSONObject obj = new JSONObject();
@@ -39,7 +39,7 @@ public class GestionFichier {
                 jsonArray.put(obj);
             }
 
-            // On écrit dans le fichier
+
             FileOutputStream fos = context.openFileOutput(NOM_FICHIER, Context.MODE_PRIVATE);
             fos.write(jsonArray.toString().getBytes());
             fos.close();
@@ -49,7 +49,7 @@ public class GestionFichier {
         }
     }
 
-    // Lire tous les films du fichier
+
     public static ArrayList<Film> lireFilms(Context context) {
         ArrayList<Film> liste = new ArrayList<>();
         try {
@@ -83,7 +83,7 @@ public class GestionFichier {
         return liste;
     }
 
-    // Supprimer un film de la collection
+
     public static void supprimerFilm(Context context, int position) {
         try {
             ArrayList<Film> liste = lireFilms(context);

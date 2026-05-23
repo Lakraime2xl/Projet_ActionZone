@@ -67,13 +67,7 @@
         android:text="Activer les notifications"
         android:textColor="#E0E0E0" />
 
-    <CheckBox
-        android:id="@+id/checkBoxAdulte"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Afficher les films adultes"
-        android:textColor="#E0E0E0" />
+
 
     <TextView
         android:layout_width="wrap_content"

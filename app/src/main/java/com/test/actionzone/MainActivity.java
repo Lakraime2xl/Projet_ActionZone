@@ -49,14 +49,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // Cette méthode affiche le menu dans la Toolbar
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
-    // Cette méthode gère le clic sur les items du menu
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_parametres) {

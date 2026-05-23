@@ -43,7 +43,7 @@ public class RechercheActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewResultats);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Quand on clique sur un film on va vers DetailActivity
+
         adapter = new FilmAdapter(this, listeFilms, film -> {
             Intent intent = new Intent(RechercheActivity.this, DetailActivity.class);
             intent.putExtra("titre", film.titre);
